@@ -1,0 +1,17 @@
+<!doctype html><html><body style="font-family:Arial;max-width:650px;margin:auto">
+<h2>{{code}}</h2>{% with m=get_flashed_messages() %}{% if m %}<b>{{m[0]}}</b>{% endif %}{% endwith %}
+<form method=post>
+<input name=team placeholder="Team Name" value="{{t.team_name or ''}}" style="width:100%;padding:8px"><br><br>
+<input name=leader id=leader placeholder="Leader Name" value="{{t.leader_name or ''}}" style="width:100%;padding:8px"><br><br>
+<input name=roll placeholder="Roll Number" value="{{t.roll or ''}}" style="width:100%;padding:8px"><br><br>
+<input name=inst placeholder="Institute" value="{{t.institute or ''}}" style="width:100%;padding:8px"><br><br>
+<input name=loc placeholder="Location" value="{{t.location or ''}}" style="width:100%;padding:8px"><br><br>
+<input name=phone id=phone placeholder="Leader Phone" value="{{t.phone or ''}}" style="width:100%;padding:8px"><br><br>
+<select name=track style="width:100%;padding:8px"><option>Bio</option><option>EduGenAI</option><option>Smart</option><option>Hardware</option></select><br><br>
+<input id=count name=count type=number min=1 max=10 value="{{t.count or 1}}" onchange=render() style="width:100%;padding:8px"><div id=members></div><button style="width:100%;padding:10px">Save Team</button></form>
+<script>
+const data=[{% for x in m %]{n:"{{x.name}}",r:"{{x.roll}}",p:"{{x.phone}}"}, {% endfor %}];
+function render(){let n=+count.value,h='';for(let i=0;i<n;i++){let d=data[i]||{};h+=`<hr><h4>Member ${i+1}</h4><input name=m${i} value="${d.n||''}" placeholder=Name style="width:100%;padding:8px"><br><br><input name=r${i} value="${d.r||''}" placeholder=Roll style="width:100%;padding:8px"><br><br><input name=p${i} value="${d.p||''}" placeholder=Phone style="width:75%;padding:8px"><button type=button onclick="copyPhone(${i})">Same</button><br>`;}members.innerHTML=h;}
+function copyPhone(i){document.querySelector(`[name=p${i}]`).value=phone.value;}
+render();
+</script></body></html>

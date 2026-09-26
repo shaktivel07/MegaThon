@@ -1,0 +1,3 @@
+<!doctype html><html><body style="font-family:Arial;max-width:360px;margin:60px auto">
+<h2>TSRM Login</h2>{% with m=get_flashed_messages() %}{% if m %}<p>{{m[0]}}</p>{% endif %}{% endwith %}
+<form method=post><input name=username placeholder=Username style="width:100%;padding:8px"><br><br><input type=password name=password placeholder=Password style="width:100%;padding:8px"><br><br><button style="width:100%;padding:10px">Login</button></form></body></html>
